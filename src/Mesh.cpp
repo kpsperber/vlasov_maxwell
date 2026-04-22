@@ -92,7 +92,7 @@ void Mesh::build() {
 }
 
 void Mesh::write() const {
-    ofstream file("grid.csv");
+    ofstream file("output/grid.csv");
 
     if (!file.is_open()) {
         cerr << "Error: Could not open file." << endl;
