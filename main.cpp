@@ -8,7 +8,8 @@
 using namespace std;
 
 int main() {
-    
+    Mesh spaceGrid("Space", "space_grid.csv");
+    Mesh velocityGrid("Velocity", "velocity_grid.csv");
 
 
     return 0;

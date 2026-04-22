@@ -11,10 +11,10 @@ class Mesh {
         int Nx, Ny;
         int Nx2, Ny2;
         double Lx, Ly;
-        double dx, dy
+        double dx, dy;
+        string meshName;
         vector<double> xc, yc;
-        vector<double> xf, yf
-
+        vector<double> xf, yf;
     
     public:
         int get_Nx() const;
@@ -27,12 +27,12 @@ class Mesh {
         double get_xc(int i) const;
         double get_yf(int j) const;
         double get_yc(int j) const;
-        void read();
+        void read(const string& filename);
         void disp() const;
         void build();
         void write() const;
         Mesh();
-        Mesh(const string& filename);
+        Mesh(string name, const string& filename);
 
 };
 
