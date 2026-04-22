@@ -18,15 +18,11 @@ The Vlasov-Maxwell system provides a governing set of PDEs that model the evolut
 
 ### Governing Equations
 In this work, we model the evolution of a collisionless plasma under electromagnetic forcing using the reduced Vlasov-Poisson equation over the spatial domain $\Omega = [0, L_x] \times [0, L_y]$ and the velocity domain $V$. The particle distribution $f(\vec{r}, \vec{v}, t)$ evolves according to the collisionless Vlasov equation,
-$$
-\begin{equation*}
-    \frac{\partial f}{\partial t}
-+ \vec{v}\cdot\nabla_{\vec{r}} f
-+ \frac{q}{m}\vec{E}\cdot\nabla_{\vec{v}} f = 0
-\end{equation*}
-$$
+
+$$ \frac{\partial f}{\partial t} + \vec{v}\cdot\nabla_{\vec{r}} f + \frac{q}{m}\vec{E}\cdot\nabla_{\vec{v}} f = 0 $$
 
 where $q$ and $m$ denote the particle charge and mass, respectively, and $\vec{E}$ is the applied electric field. This equation will need to be solved for both the electrons and the resulting cations which have charge $-q_{e^-} = q_{\text{cations}} = q$. The electric field is determined from Poisson's Equation,
+
 $$
 \begin{equation*}
     \nabla \cdot \vec{E} = \frac{\rho}{\varepsilon_0}
@@ -44,6 +40,7 @@ $$
 
 
 and is superimposed with the electric field from the laser;
+
 $$
 \begin{equation*}
     \vec{E}(x, y) = E_0 e^{-\frac{x^2 + y^2}{w^2}} (\hat{x} + \hat{y})
@@ -55,6 +52,7 @@ where $w$ is the beam waist and is about 1 mm. Since electrons move in the direc
 
 ### Initial and Boundary Conditions
 To model this we must set initial and boundary conditions. To model the boundary conditions we are going to set it such that inflow is not allowed i.e.
+
 $$
 \begin{equation*}
     f(\vec{r}_\text{boundary}, \vec{v}, t) = 0 \quad \vec{v} \cdot \hat{n} <0
@@ -72,6 +70,7 @@ $$
 where $k_B$ is the Boltzmann constant, and $T$ is the temperature. Here we will assume room temperature at about $278.15^\circ K$.
 
 For the spatial initial condition, we will assume that the particles are uniformly distributed about our domain, giving the following.
+
 $$
 \begin{equation*}
     g(\vec{r}) = \mathcal{U}(\vec{r})
@@ -79,6 +78,7 @@ $$
 $$
 
 this acts to ensure that our atmosphere is initially charge neutral as we get
+
 $$
 \begin{align*}
     \rho &= \int_\Omega \int_V f(\vec{r}, \vec{v})\\
