@@ -1,10 +1,11 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -O2 -Wno-unused-variable -Wno-unused-parameter -Wno-unused-function
+CXXFLAGS = -std=c++17 -O2 -Wall -Isrc
 EIGEN_INCLUDE = -I"C:\Users\kpspe\C_Libraries\eigen"
+# EIGEN_INCLUDE =  -IC:\Users\bselv\Cpp_Libraries\eigen-5.0.0
 
 TARGET = solver
-SRC_DIR = .
-BUILD_DIR = FINAL
+SRC_DIR = src
+BUILD_DIR = build
 
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
