@@ -1,15 +1,17 @@
 #include <iostream>
-#include "Matrix.h"
 #include "Mesh.h"
-#include "Time.h"
-#include "VolumeScalarField.h"
-#include "VectorScalarField.h"
+#include "VectorField.h"
+#include "ScalarField.h"
+
 
 using namespace std;
 
 int main() {
     Mesh spaceGrid("Space", "input/space_grid.csv");
     Mesh velocityGrid("Velocity", "input/velocity_grid.csv");
+    VectorField E("E", spaceGrid);
+    ScalarField rho(spaceGrid, "rho");
+    ScalarField V(spaceGrid, "V");
 
 
     return 0;
