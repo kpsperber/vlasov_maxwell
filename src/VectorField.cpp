@@ -16,13 +16,13 @@ VectorField::VectorField(const string& fieldName, const Mesh& mesh) {
     vy.assign(Nx2 * Ny2, 0.0);
 }
 
-double VectorField::get_x_component(const int i, const int j) {
+double VectorField::get_x_component(const int i, const int j) const {
     double val = vx[i + j * Nx2];
 
     return val;
 }
 
-double VectorField::get_y_component(const int i, const int j) {
+double VectorField::get_y_component(const int i, const int j) const {
     double val = vy[i + j * Nx2];
 
     return val;
@@ -32,6 +32,6 @@ void VectorField::set_x_component(const int i, const int j, const double val) {
     vx[i + j * Nx2] = val;
 }
 
-void VectorField::set_y_component(const int i, const int j, const double val){
+void VectorField::set_y_component(const int i, const int j, const double val) {
     vy[i + j * Nx2] = val;
 }

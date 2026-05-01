@@ -18,8 +18,8 @@ class VectorField {
 
     public:
         VectorField(const string& fieldName, const Mesh& mesh);
-        double get_x_component(const int i, const int j);
-        double get_y_component(const int i, const int j);
+        double get_x_component(const int i, const int j) const;
+        double get_y_component(const int i, const int j)const;
         void set_x_component(const int i, const int j, const double val);
         void set_y_component(const int i, const int j, const double val);
         void write();
