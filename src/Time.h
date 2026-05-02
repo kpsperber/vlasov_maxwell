@@ -15,7 +15,7 @@ class Time {
 
         Time();
         Time(const string& filename);
-        void read();
+        void read(const string& filename);
         void disp() const;
         void advance();
         bool run() const;
