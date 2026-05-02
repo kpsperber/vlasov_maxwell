@@ -106,3 +106,117 @@ void poisson(const Mesh& mesh, const ScalarField& density, ScalarField& voltage)
 		}
 	}
 }
+
+void backward_euler(
+    const Mesh& mesh,
+    const DistributionFunction& f_old,
+    DistributionFunction& f_new,
+    const VectorField& E,
+    double dt,
+    double qm,
+) {
+    int Nx2 = mesh.get_Nx() + 2;
+    int Ny2 = mesh.get_Ny() + 2;
+    int Nvx2 = mesh.get_Nvx() + 2;
+    int Nvy2 = mesh.get_Nvy() + 2;
+
+    double dx = mesh.get_dx();
+    double dy = mesh.get_dy();
+    double dvx = mesh.get_dvx();
+    double dvy = mesh.get_dvy();
+
+    // Initial guess
+    for (int i = 0; i < Nx2; ++i) {
+        for (int j = 0; j < Ny2; ++j) {
+            for (int ivx = 0; ivx < Nvx2; ++ivx) {
+                for (int ivy = 0; ivy < Nvy2; ++ivy) {
+                    f_new.set(i, j, ivx, ivy, f_old.get(i, j, ivx, ivy));
+                }
+            }
+        }
+    }
+
+    int max_iter = 200;
+    double tol = 1.0e-10;
+
+    for (int iter = 0; iter < max_iter; ++iter) {
+        double max_change = 0.0;
+
+        for (int i = 1; i < Nx2 - 1; ++i) {
+            for (int j = 1; j < Ny2 - 1; ++j) {
+
+                double Ex = E.get_x_component(i, j);
+                double Ey = E.get_y_component(i, j);
+
+                double ax = qm * Ex;
+                double ay = qm * Ey;
+
+                for (int ivx = 1; ivx < Nvx2 - 1; ++ivx) {
+                    for (int ivy = 1; ivy < Nvy2 - 1; ++ivy) {
+
+                        double vx = mesh.get_vx(ivx);
+                        double vy = mesh.get_vy(ivy);
+
+                        double Cx  = dt * std::abs(vx) / dx;
+                        double Cy  = dt * std::abs(vy) / dy;
+                        double Cvx = dt * std::abs(ax) / dvx;
+                        double Cvy = dt * std::abs(ay) / dvy;
+
+                        int i_up;
+                        if (vx > 0.0) {
+                            i_up = i - 1;
+                        } else {
+                            i_up = i + 1;
+                        }
+
+                        int j_up;
+                        if (vy > 0.0) {
+                            j_up = j - 1;
+                        } else {
+                            j_up = j + 1;
+                        }
+
+                        int ivx_up;
+                        if (ax > 0.0) {
+                            ivx_up = ivx - 1;
+                        } else {
+                            ivx_up = ivx + 1;
+                        }
+
+                        int ivy_up;
+                        if (ay > 0.0) {
+                            ivy_up = ivy - 1;
+                        } else {
+                            ivy_up = ivy + 1;
+                        }
+
+                        double old_value = f_new.get(i, j, ivx, ivy);
+
+                        double numerator =
+                            f_old.get(i, j, ivx, ivy)
+                          + Cx  * f_new.get(i_up, j, ivx, ivy)
+                          + Cy  * f_new.get(i, j_up, ivx, ivy)
+                          + Cvx * f_new.get(i, j, ivx_up, ivy)
+                          + Cvy * f_new.get(i, j, ivx, ivy_up);
+
+                        double denominator =
+                            1.0 + Cx + Cy + Cvx + Cvy;
+
+                        double new_value = numerator / denominator;
+
+                        f_new.set(i, j, ivx, ivy, new_value);
+
+                        double change = std::abs(new_value - old_value);
+                        if (change > max_change) {
+                            max_change = change;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (max_change < tol) {
+            break;
+        }
+    }
+}

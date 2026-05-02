@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void integrate(const Mesh& mesh, const DistributionFunction& f, ScalarField& rho) {
+void integrate(const Mesh2D& mesh, const DistributionFunction& f, ScalarField& rho) {
     int Nx = mesh.get_Nx();
     int Ny = mesh.get_Ny();
 
@@ -23,7 +23,7 @@ void integrate(const Mesh& mesh, const DistributionFunction& f, ScalarField& rho
     double dvx = mesh.get_dvx();
     double dvy = mesh.get_dvy();
 
-    double q = mesh.get_charge();
+    double q = 1;
 
     for (int i = 0; i < Nx2; ++i) {
         for (int j = 0; j < Ny2; ++j) {
