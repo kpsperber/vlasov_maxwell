@@ -1,9 +1,45 @@
 #include <vector>
 #include "Mesh.h"
+#include "Mesh2D.h"
 #include "VectorField.h"
 #include "ScalarField.h"
+#include "DistributionFunction.h"
 
 using namespace std;
+
+void integrate(const Mesh& mesh, const DistributionFunction& f, ScalarField& rho) {
+    int Nx = mesh.get_Nx();
+    int Ny = mesh.get_Ny();
+
+    int Nx2 = Nx + 2;
+    int Ny2 = Ny + 2;
+
+    int Nvx = mesh.get_Nvx();
+    int Nvy = mesh.get_Nvy();
+
+    int Nvx2 = Nvx + 2;
+    int Nvy2 = Nvy + 2;
+
+    double dvx = mesh.get_dvx();
+    double dvy = mesh.get_dvy();
+
+    double q = mesh.get_charge();
+
+    for (int i = 0; i < Nx2; ++i) {
+        for (int j = 0; j < Ny2; ++j) {
+
+            double sum = 0.0;
+
+            for (int ivx = 0; ivx < Nvx2; ++ivx) {
+                for (int ivy = 0; ivy < Nvy2; ++ivy) {
+                    sum += f.get(i, j, ivx, ivy) * dvx * dvy;
+                }
+            }
+
+            rho.set(i, j, q * sum);
+        }
+    }
+}
 
 void gradient(const Mesh& mesh, const ScalarField& V, VectorField& E) {
     int Nx = mesh.get_Nx();
