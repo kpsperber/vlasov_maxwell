@@ -1,31 +1,27 @@
 #include "Time.h"
-
+#include "FileIO.h"
 #include <iostream>
 
 // Helper Functions
 void Time::read(const string& filename) {
-    ifstream file(filename);
+    KeyValueMap kv;
+    read(filename, kv);
 
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file." << endl;
-        return;
+    if (kv.count("t0")) {
+        t0 = stod(kv["t0"]);
     }
-
-    string line;
-    while(getline(file, line)) {
-        auto pos = line.find(',');
-        string key = line.substr(0, pos);
-        string value = line.substr(pos + 1);
-        if (!value.empty() && value[0] == ' ') value.erase(0, 1);
-        
-        if (key == "t0") {t0 = stoi(value);}
-        if (key == "tf") {tf = stoi(value);}
-        if (key == "dt") {dt = stof(value);}
-        if (key == "Nt") {Nt = stof(value);}
-        if (key == "writeInterval") {writeInterval = stof(value);}
+    if (kv.count("tf")) {
+        tf = stod(kv["tf"]);
     }
-
-    file.close();
+    if (kv.count("dt")) {
+        dt = stod(kv["dt"]);
+    }
+    if (kv.count("Nt")) {
+        Nt = stoi(kv["Nt"]);
+    }
+    if (kv.count("writeInterval")) {
+        writeInterval = stoi(kv["writeInterval"]);
+    }
 }
 
 void Time::disp() const {
@@ -48,7 +44,7 @@ Time::Time() {
 
 Time::Time(const string& filename) {
     read(filename);
-    disp();
+    // disp();
     time = t0;
     timeStep = 0;
 }

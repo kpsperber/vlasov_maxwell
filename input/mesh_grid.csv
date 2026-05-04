@@ -1,0 +1,9 @@
+# Spatial and velocity mesh
+Nx,64
+Ny,64
+Lx,6.28318
+Ly,6.28318
+Nvx,64
+Nvy,64
+Lvx,6.28318
+Lvy,6.28318

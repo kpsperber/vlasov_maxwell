@@ -3,8 +3,6 @@
 #include <fstream>
 #include <string>
 
-namespace FileIO {
-
 namespace {
 
 /** Trim whitespace from the beginning and end of a string. */
@@ -31,8 +29,6 @@ std::string strip_value(std::string v) {
     return v;
 }
 
-} // namespace
-
 void read(const std::string& path, KeyValueMap& out) {
     std::ifstream in(path);
     std::string line;
@@ -48,4 +44,3 @@ void read(const std::string& path, KeyValueMap& out) {
     }
 }
 
-} // namespace FileIO

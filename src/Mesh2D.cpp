@@ -1,32 +1,38 @@
 #include "Mesh2D.h"
+#include "FileIO.h"
 
-Mesh2D::Mesh2D(
-    int Nx_in, int Ny_in,
-    int Nvx_in, int Nvy_in,
-    double xmin_in, double xmax_in,
-    double ymin_in, double ymax_in,
-    double vxmin_in, double vxmax_in,
-    double vymin_in, double vymax_in
-) {
-    Nx = Nx_in;
-    Ny = Ny_in;
-    Nvx = Nvx_in;
-    Nvy = Nvy_in;
+#include <iostream>
+#include <stdexcept>
+
+Mesh2D::Mesh2D(const std::string& mesh_file) {
+    KeyValueMap kv;
+    read(mesh_file, kv);
+    static const char* required[] = {"Nx", "Ny", "Lx", "Ly", "Nvx", "Nvy", "Lvx", "Lvy"};
+    for (const char* k : required) {
+        if (kv.find(k) == kv.end()) {
+            throw std::runtime_error(std::string("Mesh2D: missing key '") + k + "' in " + mesh_file);
+        }
+    }
+
+    Nx =std::stoi(kv.at("Nx"));
+    Ny = std::stoi(kv.at("Ny"));
+    Nvx = std::stoi(kv.at("Nvx"));
+    Nvy = std::stoi(kv.at("Nvy"));
 
     Nx2 = Nx + 2;
     Ny2 = Ny + 2;
     Nvx2 = Nvx + 2;
     Nvy2 = Nvy + 2;
 
-    xmin = xmin_in;
-    xmax = xmax_in;
-    ymin = ymin_in;
-    ymax = ymax_in;
+    xmin = 0.0;
+    xmax = std::stod(kv.at("Lx"));
+    ymin = 0.0;
+    ymax = std::stod(kv.at("Ly"));
 
-    vxmin = vxmin_in;
-    vxmax = vxmax_in;
-    vymin = vymin_in;
-    vymax = vymax_in;
+    vxmin = 0.0;
+    vxmax = std::stod(kv.at("Lvx"));
+    vymin = 0.0;
+    vymax = std::stod(kv.at("Lvy"));
 
     dx = (xmax - xmin) / Nx;
     dy = (ymax - ymin) / Ny;
@@ -39,8 +45,6 @@ Mesh2D::Mesh2D(
     vx.assign(Nvx2, 0.0);
     vy.assign(Nvy2, 0.0);
 
-    // Cell-centered coordinates with ghost cells.
-    // Interior cells are 1 through Nx, 1 through Ny, etc.
     for (int i = 0; i < Nx2; ++i) {
         x[i] = xmin + (i - 0.5) * dx;
     }

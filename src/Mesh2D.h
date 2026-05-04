@@ -5,6 +5,11 @@
 #include <string>
 #include <fstream>
 
+/**
+ * @brief 2D mesh for spatial and velocity coordinates.
+ *
+ * Stores the coordinates of the mesh in 2D (x,y) space and a 2D (vx,vy) velocity space.
+ */
 class Mesh2D {
 private:
     // Number of interior cells
@@ -33,14 +38,7 @@ private:
     std::vector<double> vy;
 
 public:
-    Mesh2D(
-        int Nx, int Ny,
-        int Nvx, int Nvy,
-        double xmin, double xmax,
-        double ymin, double ymax,
-        double vxmin, double vxmax,
-        double vymin, double vymax
-    );
+    Mesh2D(const std::string& mesh_file = "input/mesh_grid.csv");
 
     int get_Nx() const;
     int get_Ny() const;

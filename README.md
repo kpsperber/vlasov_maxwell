@@ -143,14 +143,14 @@ vlasov_maxwell/
 ├── src/                      # Source and header files
 │   ├── main.cpp
 │   ├── Matrix.{cpp,h}        # Linear solver
-│   ├── Mesh.{cpp,h}          # Spatial discretization
+│   ├── Mesh2D.{cpp,h}        # Spatial + velocity mesh
 │   ├── Time.{cpp,h}          # Time stepping  
 │   ├── VolumeScalarField.{cpp,h}
 │   ├── VectorScalarField.{cpp,h}
 │   └── README.md
 ├── input/                    # Configuration files
-│   ├── space_grid.csv        # Spatial mesh parameters
-│   ├── velocity_grid.csv     # Velocity mesh parameters
+│   ├── mesh_grid.csv         # Spatial + velocity mesh parameters
+│   ├── time_grid.csv         # Time stepping parameters
 │   └── README.md
 ├── output/                   # Results
 ├── scripts/                  # Postprocessing scripts

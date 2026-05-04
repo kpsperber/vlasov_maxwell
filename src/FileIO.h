@@ -3,9 +3,6 @@
 
 #include <map>
 #include <string>
-#include <vector>
-
-namespace FileIO {
 
 using KeyValueMap = std::map<std::string, std::string>;
 
@@ -14,10 +11,7 @@ using KeyValueMap = std::map<std::string, std::string>;
  *
  * @param path Path to the csv file
  * @param out Map to store the key-value pairs
- * @return True if the file opened and was read
  */
-bool read(const std::string& path, KeyValueMap& out);
-
-} // namespace FileIO
+void read(const std::string& path, KeyValueMap& out);
 
 #endif
