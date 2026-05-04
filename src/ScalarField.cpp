@@ -1,9 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "ScalarField.h"
-#include "Mesh.h"
 
-ScalarField::ScalarField(Mesh& mesh, std::string fieldName)
+ScalarField::ScalarField(const Mesh2D& mesh, std::string fieldName)
     : Nx(mesh.get_Nx()), Ny(mesh.get_Ny()),
       Nx2(mesh.get_Nx() + 2), Ny2(mesh.get_Ny() + 2),
       fieldName(fieldName)
@@ -19,8 +18,8 @@ void ScalarField::set(const int i, const int j, const double value) {
     data[i + j * Nx2] = value;
 }
 
-void ScalarField::save(const std::string& filename) const {
-    std::string path = filename.empty() ? "output/" + fieldName + ".out" : filename;
+void ScalarField::write(const std::string& filename) const {
+    std::string path = filename.empty() ? "output/" + fieldName + ".dat" : filename;
     std::ofstream file(path);
 
     if (!file.is_open()) {

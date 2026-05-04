@@ -6,8 +6,13 @@
 #include <fstream>
 using namespace std;
 
-#include "Mesh.h"
+#include "Mesh2D.h"
 
+/**
+* @brief Vector field data structure
+*
+* Stores the x and y components of a vector field at every point in a 2D (x,y) mesh.
+*/
 class VectorField {
     private:
         int Nx, Ny;
@@ -17,11 +22,53 @@ class VectorField {
         std::string name;
 
     public:
-        VectorField(const string& fieldName, const Mesh& mesh);
-        double get_x_component(const int i, const int j) const;
-        double get_y_component(const int i, const int j)const;
-        void set_x_component(const int i, const int j, const double val);
-        void set_y_component(const int i, const int j, const double val);
+        /**
+        * @brief Constructor to initialize the vector field with the mesh dimensions and a name.
+        *
+        * @param fieldName Name of the vector field
+        * @param mesh Reference to the mesh
+        */
+        VectorField(const string& fieldName, const Mesh2D& mesh);
+
+        /**
+        * @brief Get the x-component of the vector field at mesh indices (i,j).
+        *
+        * @param i Index in x-direction
+        * @param j Index in y-direction
+        * @return x-component of the vector field at (i,j)
+        */
+        double get_x(const int i, const int j) const;
+
+        /**
+        * @brief Get the y-component of the vector field at mesh indices (i,j).
+        *
+        * @param i Index in x-direction
+        * @param j Index in y-direction
+        * @return y-component of the vector field at (i,j)
+        */
+        double get_y(const int i, const int j)const;
+
+        /**
+        * @brief Set the x-component of the vector field at mesh indices (i,j).
+        *
+        * @param i Index in x-direction
+        * @param j Index in y-direction
+        * @param val Value to set at (i,j)
+        */
+        void set_x(const int i, const int j, const double val);
+
+        /**
+        * @brief Set the y-component of the vector field at mesh indices (i,j).
+        *
+        * @param i Index in x-direction
+        * @param j Index in y-direction
+        * @param val Value to set at (i,j)
+        */
+        void set_y(const int i, const int j, const double val);
+
+        /**
+        * @brief Write the vector field to a file.
+        */
         void write();
 };
 

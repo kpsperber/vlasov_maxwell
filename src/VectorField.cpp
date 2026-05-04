@@ -3,9 +3,8 @@
 using namespace std;
 
 #include "VectorField.h"
-#include "Mesh.h"
 
-VectorField::VectorField(const string& fieldName, const Mesh& mesh) {
+VectorField::VectorField(const string& fieldName, const Mesh2D& mesh) {
     name = fieldName;
     Nx = mesh.get_Nx();
     Ny = mesh.get_Ny();
@@ -16,22 +15,22 @@ VectorField::VectorField(const string& fieldName, const Mesh& mesh) {
     vy.assign(Nx2 * Ny2, 0.0);
 }
 
-double VectorField::get_x_component(const int i, const int j) const {
+double VectorField::get_x(const int i, const int j) const {
     double val = vx[i + j * Nx2];
 
     return val;
 }
 
-double VectorField::get_y_component(const int i, const int j) const {
+double VectorField::get_y(const int i, const int j) const {
     double val = vy[i + j * Nx2];
 
     return val;
 }
 
-void VectorField::set_x_component(const int i, const int j, const double val) {
+void VectorField::set_x(const int i, const int j, const double val) {
     vx[i + j * Nx2] = val;
 }
 
-void VectorField::set_y_component(const int i, const int j, const double val) {
+void VectorField::set_y(const int i, const int j, const double val) {
     vy[i + j * Nx2] = val;
 }

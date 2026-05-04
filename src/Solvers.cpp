@@ -3,8 +3,10 @@
 #include <Eigen/Sparse>
 #include <Eigen/SparseLU>
 #include "Solvers.h"
+#include "DistributionFunction.h"
+#include "VectorField.h"
 
-void poisson(const Mesh& mesh, const ScalarField& density, ScalarField& voltage) {
+void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage) {
 	const double epsilon = 8.85e-12;
 	const int Nx   = mesh.get_Nx();
 	const int Ny   = mesh.get_Ny();
@@ -108,12 +110,12 @@ void poisson(const Mesh& mesh, const ScalarField& density, ScalarField& voltage)
 }
 
 void backward_euler(
-    const Mesh& mesh,
+    const Mesh2D& mesh,
     const DistributionFunction& f_old,
     DistributionFunction& f_new,
     const VectorField& E,
     double dt,
-    double qm,
+    double qm
 ) {
     int Nx2 = mesh.get_Nx() + 2;
     int Ny2 = mesh.get_Ny() + 2;
@@ -145,8 +147,8 @@ void backward_euler(
         for (int i = 1; i < Nx2 - 1; ++i) {
             for (int j = 1; j < Ny2 - 1; ++j) {
 
-                double Ex = E.get_x_component(i, j);
-                double Ey = E.get_y_component(i, j);
+                double Ex = E.get_x(i, j);
+                double Ey = E.get_y(i, j);
 
                 double ax = qm * Ex;
                 double ay = qm * Ey;

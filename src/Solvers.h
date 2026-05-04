@@ -1,7 +1,7 @@
 #ifndef SOLVERS_H
 #define SOLVERS_H
 
-#include "Mesh.h"
+#include "Mesh2D.h"
 #include "ScalarField.h"
 
 
@@ -14,6 +14,6 @@
  * @param density Scalar field representing charge density (ρ)
  * @param voltage Scalar field representing voltage to be solved for. This is modified in-place.
  */
-void poisson(const Mesh& mesh, const ScalarField& density, ScalarField& voltage);
+void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage);
 
 #endif // SOLVERS_H
