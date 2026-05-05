@@ -5,7 +5,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
-#include "../src/Mesh.h"
+#include "../src/Mesh2D.h"
 #include "../src/ScalarField.h"
 #include "../src/Solvers.h"
 
@@ -15,33 +15,37 @@
  * Solutions should converge to v(x,y) = sin(x) sin(y)
  * with second-order accuracy
  */
-
-static std::string write_grid_csv(int N) {
-    const std::string filename = "tmp_grid_" + std::to_string(N) + ".csv";
-    std::ofstream f(filename);
-    f << "Nx, " << N << "\n";
-    f << "Ny, " << N << "\n";
-    f << "Lx, 3.14159265358979\n";
-    f << "Ly, 3.14159265358979\n";
-    return filename;
+static std::string write_poisson_mesh_csv(int N, double L) {
+    const std::string path = "mesh_poisson_convergence_tmp.csv";
+    std::ofstream out(path);
+    out << "Nx," << N << "\n";
+    out << "Ny," << N << "\n";
+    out << "Lx," << L << "\n";
+    out << "Ly," << L << "\n";
+    out << "Nvx,1\n";
+    out << "Nvy,1\n";
+    out << "Lvx,1\n";
+    out << "Lvy,1\n";
+    out.close();
+    return path;
 }
 
 static double run(int N) {
     const double epsilon = 8.85e-12;
+    const double L = 3.14159265358979;
 
-    const std::string grid_file = write_grid_csv(N);
-    Mesh mesh("PoissonTest N=" + std::to_string(N), grid_file);
-    std::remove(grid_file.c_str());
+    const std::string mesh_path = write_poisson_mesh_csv(N, L);
+    Mesh2D mesh(mesh_path);
 
-    const int    Nx = mesh.get_Nx();
-    const int    Ny = mesh.get_Ny();
+    const int Nx = mesh.get_Nx();
+    const int Ny = mesh.get_Ny();
     ScalarField density(mesh, "density");
     ScalarField voltage(mesh, "voltage");
 
     for (int j = 1; j <= Ny; ++j) {
         for (int i = 1; i <= Nx; ++i) {
-            const double x = mesh.get_xc(i);
-            const double y = mesh.get_yc(j);
+            const double x = mesh.get_x(i);
+            const double y = mesh.get_y(j);
             density.set(i, j, epsilon * (-2.0) * std::sin(x) * std::sin(y));
         }
     }
@@ -51,8 +55,8 @@ static double run(int N) {
     double linf_error = 0.0;
     for (int j = 1; j <= Ny; ++j) {
         for (int i = 1; i <= Nx; ++i) {
-            const double x    = mesh.get_xc(i);
-            const double y    = mesh.get_yc(j);
+            const double x = mesh.get_x(i);
+            const double y = mesh.get_y(j);
             const double diff = voltage.get(i, j) - std::sin(x) * std::sin(y);
             linf_error = std::max(linf_error, std::fabs(diff));
         }
@@ -100,7 +104,8 @@ int main() {
     std::cout << (pass ? "PASS" : "FAIL")
               << "  (convergence rate = "
               << std::fixed << std::setprecision(2) << rate << ", expected ~2.0)\n";
+
+    const std::string mesh_path = "mesh_poisson_convergence_tmp.csv";
+    std::remove(mesh_path.c_str());
     return pass ? 0 : 1;
 }
-
-
