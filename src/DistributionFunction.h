@@ -36,7 +36,7 @@ public:
      * @param fieldName Name of the distribution function
      * @param mesh Mesh2D defining the spatial and velocity mesh
      */
-    DistributionFunction(const std::string& fieldName = "f", const Mesh2D& mesh);
+    DistributionFunction(const Mesh2D& mesh, const std::string& fieldName = "f");
 
     /**
      * @brief Get the value of the distribution function at mesh indices (i,j,k,l).

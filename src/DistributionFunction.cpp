@@ -1,6 +1,6 @@
 #include "DistributionFunction.h"
 
-DistributionFunction::DistributionFunction(const std::string& fieldName, const Mesh2D& mesh) {
+DistributionFunction::DistributionFunction(const Mesh2D& mesh, const std::string& fieldName) {
     name = fieldName;
 
     Nx = mesh.get_Nx();

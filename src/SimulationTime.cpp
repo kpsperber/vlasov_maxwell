@@ -37,7 +37,7 @@ void Time::disp() const {
 }
 
 Time::Time() {
-    time = t0;
+    time = 0.0;
     timeStep = 0;
 }
 
