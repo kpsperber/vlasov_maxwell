@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+namespace FileIO {
+
 using KeyValueMap = std::map<std::string, std::string>;
 
 /**
@@ -13,5 +15,7 @@ using KeyValueMap = std::map<std::string, std::string>;
  * @param out Map to store the key-value pairs
  */
 void read(const std::string& path, KeyValueMap& out);
+
+} // namespace FileIO
 
 #endif

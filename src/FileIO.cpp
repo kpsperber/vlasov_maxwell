@@ -3,10 +3,10 @@
 #include <fstream>
 #include <string>
 
-namespace {
+namespace FileIO {
 
 /** Trim whitespace from the beginning and end of a string. */
-void trim_inplace(std::string& s) {
+static void trim_inplace(std::string& s) {
     static constexpr char kWs[] = " \t\r";
     const std::size_t i = s.find_first_not_of(kWs);
     if (i == std::string::npos) {
@@ -18,7 +18,7 @@ void trim_inplace(std::string& s) {
 }
 
 /** Trim and strip trailing semicolons from the value field (e.g. 0.0;). */
-std::string strip_value(std::string v) {
+static std::string strip_value(std::string v) {
     for (;;) {
         trim_inplace(v);
         if (v.empty() || v.back() != ';') {
@@ -44,3 +44,4 @@ void read(const std::string& path, KeyValueMap& out) {
     }
 }
 
+} // namespace FileIO

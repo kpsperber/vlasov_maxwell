@@ -5,8 +5,8 @@
 #include <stdexcept>
 
 Mesh2D::Mesh2D(const std::string& mesh_file) {
-    KeyValueMap kv;
-    read(mesh_file, kv);
+    FileIO::KeyValueMap kv;
+    FileIO::read(mesh_file, kv);
     static const char* required[] = {"Nx", "Ny", "Lx", "Ly", "Nvx", "Nvy", "Lvx", "Lvy"};
     for (const char* k : required) {
         if (kv.find(k) == kv.end()) {
