@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-class Time {
+class SimulationTime {
     private:
         double t0, tf, dt;
         int Nt, writeInterval;
@@ -13,8 +13,8 @@ class Time {
         double time;
         int timeStep;
 
-        Time();
-        Time(const std::string& filename);
+        SimulationTime();
+        SimulationTime(const std::string& filename);
         void read(const std::string& filename);
         void disp() const;
         void advance();

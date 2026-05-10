@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-void Time::read(const std::string& filename) {
+void SimulationTime::read(const std::string& filename) {
     FileIO::KeyValueMap kv;
     FileIO::read(filename, kv);
 
@@ -24,7 +24,7 @@ void Time::read(const std::string& filename) {
     }
 }
 
-void Time::disp() const {
+void SimulationTime::disp() const {
     std::cout << std::endl;
     std::cout << std::string(50, '=') << std::endl;
     std::cout << " Time Properties" << std::endl;
@@ -36,24 +36,24 @@ void Time::disp() const {
     std::cout << writeInterval << "; writeInterval (write data every...)" << std::endl;
 }
 
-Time::Time() {
+SimulationTime::SimulationTime() {
     time = 0.0;
     timeStep = 0;
 }
 
-Time::Time(const std::string& filename) {
+SimulationTime::SimulationTime(const std::string& filename) {
     read(filename);
     time = t0;
     timeStep = 0;
 }
 
-void Time::advance() {
+void SimulationTime::advance() {
     timeStep = timeStep + 1;
     time = time + dt;
 }
 
-bool Time::run() const { return (timeStep < Nt); }
+bool SimulationTime::run() const { return (timeStep < Nt); }
 
-bool Time::write_now() const { return (timeStep % writeInterval == 0); }
+bool SimulationTime::write_now() const { return (timeStep % writeInterval == 0); }
 
-double Time::get_dt() const { return dt; }
+double SimulationTime::get_dt() const { return dt; }
