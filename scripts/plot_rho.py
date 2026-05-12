@@ -48,7 +48,7 @@ def plot_rho(rho_data):
         plt.title(f"Charge Density at Time {time:.4e}")
         plt.xlabel("x")
         plt.ylabel("y")
-        plt.show()
+        #plt.show()
         plt.tight_layout()
         plt.savefig(f"output/rho_{time:.4e}.png")
         plt.close()
