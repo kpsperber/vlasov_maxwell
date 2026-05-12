@@ -84,6 +84,6 @@ void test_1(const Mesh2D& mesh) {
 
 int main() {
     // determine 
-    Mesh2D mesh("input/mesh_grid.csv");
+    Mesh2D mesh("../input/mesh_grid.csv");
     test_1(mesh);
 }
