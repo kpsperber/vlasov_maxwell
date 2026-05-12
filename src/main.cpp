@@ -46,7 +46,6 @@ int main() {
         // solve for charge density with poisson solver
         poisson(mesh,rho,V);
 
-
         // compute voltage
 
         // integrate voltage 

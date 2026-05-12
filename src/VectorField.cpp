@@ -1,5 +1,7 @@
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
 using namespace std;
 
 #include "VectorField.h"
@@ -33,4 +35,22 @@ void VectorField::set_x(const int i, const int j, const double val) {
 
 void VectorField::set_y(const int i, const int j, const double val) {
     vy[i + j * Nx2] = val;
+}
+
+void VectorField::write(double dt) {
+    std::string path = "output/" + name + "_" + std::to_string(dt) + ".dat";
+    std::ofstream file(path);
+
+    file << "\n# vx values\n";
+    for (int k = 0; k < Nx2; ++k) {
+        file << k << " " << vx[k] << "\n";
+    }
+
+    file << "\n# vy values\n";
+    for (int l = 0; l < Ny2; ++l) {
+        file << l << " " << vy[l] << "\n";
+    }
+
+    file.close();
+
 }
