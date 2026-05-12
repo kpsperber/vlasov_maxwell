@@ -96,12 +96,23 @@ For the electric field the boundary conditions are quite simple. We will assume 
 To solve this at each time step we use a Backward Euler time stepping scheme where we first solve the electric field and then solve the Vlasov equation. [MORE DETAILS AS WE BUILD]
 
 ## Verification
+First, we verified that our Poisson solver converged. We used the manufactured solution 
 
-The solver is verified using the Method of Manufactured Solutions. The test solution
+$$v(x,y) = \sin(x)\sin(y).$$
+
+As a result, we confirmed that the solver had a convergence rate of... 
+
+Next, we checked that the iterative implicit solver ran with minimal error. In order to do this, we set the electric field equal to zero then ran an iteration of the solver. Our maximum error was...
+
+Finally, the solver was verified using the Method of Manufactured Solutions. The test solution
 
 $$f = \sin(x)\sin(y)\sin(v_x)\sin(v_y)\sin(t)$$
 
-is prescribed over the domain $L_x = L_y = \pi$ with a manufactured forcing function $g(x, y, v_x, v_y, t)$ derived by substituting $f$ into the Vlasov equation analytically. The solver is run with this forcing and the computed solution is compared to the exact $f$, confirming spatial and temporal convergence at the expected rates.
+is prescribed over the domain $L_x = L_y = \pi$ with a manufactured forcing function $g(x, y, v_x, v_y, t)$ derived by substituting $f$ into the Vlasov equation analytically. We found
+
+$$g = \frac{-\sin(x)\sin(y)\sin(t)}{L_xL_y} + \frac{v_x\cos(x)\sin(y)\cos(t)}{L_xL_y} + frac{v_y\sin(x)\cos(y)\cos(t)}{L_xL_y}.$$
+
+The solver is run with this forcing and the computed solution is compared to the exact $f$, confirming spatial and temporal convergence at the expected rates.
 
 ## Quick Start
 
