@@ -60,6 +60,9 @@ public:
     double get_vx(int k) const;
     double get_vy(int l) const;
 
+    double get_vxmax() const;
+    double get_vymax() const;
+
     int idx_space(int i, int j) const;
     int idx_phase(int i, int j, int k, int l) const;
 
