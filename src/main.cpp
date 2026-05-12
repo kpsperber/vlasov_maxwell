@@ -86,23 +86,29 @@ int main() {
     // ---------- the time loop - - - - - - - - -//
     while (runTime.run()) {
 
+        // increment time
         runTime.advance();
 
+        // superimpose electric field
         E_total = E_charge + E_laser;
 
+        // solve for f with iterative implicit solver
         iterative_implicit_solver(mesh, f_old, f_new, E_total, runTime.time, dt, qm, g);
 
+        // solve for charge/voltage 
         integrate(mesh, f_new, rho);
-
         poisson(mesh, rho, V);
 
+        // solve for electric field
         gradient(mesh, V, E_charge);
 
+        // output charge and E field
         if (runTime.write_now()) {
             rho.write(runTime.time);
             E_total.write(runTime.time);
         }
 
+        // update f
         f_old = f_new;
     }
 
