@@ -144,6 +144,14 @@ double Mesh2D::get_vymax() const {
     return 2 * vymax;
 }
 
+double Mesh2D::get_xmax() const {
+    return xmax;
+}
+
+double Mesh2D::get_ymax() const {
+    return ymax;
+}
+
 void Mesh2D::write_coordinates() const {
     std::ofstream file("mesh_coordinates.dat");
 
