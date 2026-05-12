@@ -2,6 +2,8 @@
 
 #include <fstream>
 #include <string>
+#include <iostream>
+#include <stdexcept>
 
 namespace FileIO {
 
@@ -31,15 +33,27 @@ static std::string strip_value(std::string v) {
 
 void read(const std::string& path, KeyValueMap& out) {
     std::ifstream in(path);
+
+    if (!in.is_open()) {
+        throw std::runtime_error("FileIO: could not open file " + path);
+    }
+
     std::string line;
     while (std::getline(in, line)) {
         trim_inplace(line);
         if (line.empty() || line[0] == '#') {
             continue;
         }
+
         const std::size_t pos = line.find(',');
+
+        if (pos == std::string::npos) {
+            throw std::runtime_error("FileIO: bad line in " + path + ": " + line);
+        }
+
         std::string name = line.substr(0, pos);
         trim_inplace(name);
+
         out[name] = strip_value(line.substr(pos + 1));
     }
 }

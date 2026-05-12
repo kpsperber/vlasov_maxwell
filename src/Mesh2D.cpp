@@ -5,10 +5,13 @@
 #include <stdexcept>
 
 Mesh2D::Mesh2D(const std::string& mesh_file) {
+
     FileIO::KeyValueMap kv;
     FileIO::read(mesh_file, kv);
+
     static const char* required[] = {"Nx", "Ny", "Lx", "Ly", "Nvx", "Nvy", "Lvx", "Lvy"};
     for (const char* k : required) {
+
         if (kv.find(k) == kv.end()) {
             throw std::runtime_error(std::string("Mesh2D: missing key '") + k + "' in " + mesh_file);
         }
