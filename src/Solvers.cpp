@@ -115,7 +115,8 @@ void backward_euler(
     DistributionFunction& f_new,
     const VectorField& E,
     double dt,
-    double qm
+    double qm,
+    std::function<double(int, int, int, int)> g
 ) {
     int Nx2 = mesh.get_Nx() + 2;
     int Ny2 = mesh.get_Ny() + 2;
@@ -199,7 +200,8 @@ void backward_euler(
                           + Cx  * f_new.get(i_up, j, ivx, ivy)
                           + Cy  * f_new.get(i, j_up, ivx, ivy)
                           + Cvx * f_new.get(i, j, ivx_up, ivy)
-                          + Cvy * f_new.get(i, j, ivx, ivy_up);
+                          + Cvy * f_new.get(i, j, ivx, ivy_up)
+                          - g(i, j, ivx, ivy);
 
                         double denominator =
                             1.0 + Cx + Cy + Cvx + Cvy;
