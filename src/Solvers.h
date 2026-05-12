@@ -1,6 +1,8 @@
 #ifndef SOLVERS_H
 #define SOLVERS_H
 
+#include <functional>
+
 #include "Mesh2D.h"
 #include "ScalarField.h"
 
@@ -32,7 +34,8 @@ void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltag
  * @param E Electric field
  * @param dt Time step
  * @param qm Charge-to-mass ratio
+ * @param g Function representing the source term, used to test the solver using the Method of Manufactured Solutions. Defaults to 0.
  */
-void iterative_implicit_solver(const Mesh2D& mesh, const DistributionFunction& f_old, DistributionFunction& f_new, const VectorField& E, double dt, double qm);
+void iterative_implicit_solver(const Mesh2D& mesh, const DistributionFunction& f_old, DistributionFunction& f_new, const VectorField& E, double dt, double qm, std::function<double(int, int, int, int)> g = [] (int i, int j, int ivx, int ivy) -> double { return 0.0; });
 
 #endif // SOLVERS_H
