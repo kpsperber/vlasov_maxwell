@@ -63,6 +63,9 @@ int main() {
                     E_laser.set_y(i, j, 0.0);
                     E_total.set_x(i, j, 0.0);
                     E_total.set_y(i, j, 0.0);
+                    
+                    // Charge 
+                    rho.set(i, j, -2 * std::sin(x) * std::sin(y));
                 }
             }
         }
