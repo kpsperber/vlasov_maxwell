@@ -37,8 +37,8 @@ void VectorField::set_y(const int i, const int j, const double val) {
     vy[i + j * Nx2] = val;
 }
 
-void VectorField::write(double dt) {
-    std::string path = "output/" + name + "_" + std::to_string(dt) + ".dat";
+void VectorField::write(double t) {
+    std::string path = "output/" + name + "_" + std::to_string(t) + ".dat";
     std::ofstream file(path);
 
     file << "\n# vx values\n";

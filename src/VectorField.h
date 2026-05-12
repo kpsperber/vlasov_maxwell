@@ -69,7 +69,7 @@ class VectorField {
         /**
         * @brief Write the vector field to a file.
         */
-        void write(double dt);
+        void write(double t);
 };
 
 #endif
