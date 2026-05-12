@@ -62,6 +62,8 @@ public:
 
     double get_vxmax() const;
     double get_vymax() const;
+    double get_xmax() const;
+    double get_ymax() const;
 
     int idx_space(int i, int j) const;
     int idx_phase(int i, int j, int k, int l) const;

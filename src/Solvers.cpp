@@ -131,8 +131,8 @@ void iterative_implicit_solver(
     double dy = mesh.get_dy();
     double dvx = mesh.get_dvx();
     double dvy = mesh.get_dvy();
-    double Lvx = 2 * mesh.get_vxmax();
-    double Lvy = 2 * mesh.get_vymax();
+    double Lvx = mesh.get_vxmax();
+    double Lvy = mesh.get_vymax();
 
     // Initial guess is just the previous timestep
     for (int i = 0; i < Nx2; ++i) {

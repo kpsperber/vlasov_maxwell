@@ -1,4 +1,4 @@
 t0,0.0;
-tf,6.28318;
+tf,100;
 Nt,1000;
-writeInterval,1;
+writeInterval,10;

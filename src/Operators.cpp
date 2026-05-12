@@ -29,8 +29,8 @@ void integrate(const Mesh2D& mesh, const DistributionFunction& f, ScalarField& r
 
             double sum = 0.0;
 
-            for (int ivx = 0; ivx < Nvx2; ++ivx) {
-                for (int ivy = 0; ivy < Nvy2; ++ivy) {
+            for (int ivx = 1; ivx < Nvx; ++ivx) {
+                for (int ivy = 1; ivy < Nvy; ++ivy) {
                     sum += f.get(i, j, ivx, ivy) * dvx * dvy;
                 }
             }
