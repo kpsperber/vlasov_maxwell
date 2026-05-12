@@ -69,6 +69,9 @@ class VectorField {
         /**
         * @brief Write the vector field to a file.
         */
+
+        VectorField operator+(const VectorField& other) const;
+        
         void write(double t);
 };
 
