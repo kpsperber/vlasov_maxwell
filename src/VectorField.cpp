@@ -54,6 +54,8 @@ VectorField VectorField::operator+(const VectorField& other) const {
 
     return result;
     
+}
+
 void VectorField::write(double t) {
     std::string path = "output/" + name + "_" + std::to_string(t) + ".dat";
     std::ofstream file(path);

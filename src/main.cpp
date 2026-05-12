@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "Mesh2D.h"
 #include "VectorField.h"
 #include "ScalarField.h"
@@ -25,6 +26,7 @@ int main() {
     // Declare electric field
     VectorField E_charge("E Charge", mesh);
     VectorField E_laser("E Laser", mesh);
+    VectorField E_total("E Total", mesh);
 
     // Create charge density field
     ScalarField rho(mesh, "rho");
@@ -59,6 +61,8 @@ int main() {
                     E_charge.set_y(i, j, 0.0);
                     E_laser.set_x(i, j, 0.0);
                     E_laser.set_y(i, j, 0.0);
+                    E_total.set_x(i, j, 0.0);
+                    E_total.set_y(i, j, 0.0);
                 }
             }
         }
@@ -73,7 +77,8 @@ int main() {
         runTime.advance();
 
         // solve for f with iterative implicit solver function
-        iterative_implicit_solver(mesh, f_old, f_new, E_charge + E_laser, dt, qm);
+        E_total = E_charge + E_laser;
+        iterative_implicit_solver(mesh, f_old, f_new, E_total, dt, qm);
 
         // solve for charge density with poisson solver
         integrate(mesh, f_new, rho);
@@ -81,6 +86,12 @@ int main() {
         // compute voltage
         poisson(mesh, rho, V);
         gradient(mesh, V, E_charge);
+
+        // write values
+        if (runTime.write_now()) {
+            rho.write(runTime.time);
+            E_total.write(runTime.time);
+        }
 
     }
 
