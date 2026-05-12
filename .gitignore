@@ -154,3 +154,5 @@ dmypy.json
 *.obj
 *.dat
 # *.exe
+
+*.png
