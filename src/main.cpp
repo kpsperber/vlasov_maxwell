@@ -49,8 +49,8 @@ int main() {
                     // Velocity field
                     double x = mesh.get_x(i);
                     double y = mesh.get_y(j);
-                    double vx = mesh.get_vx(ivx);
-                    double vy = mesh.get_vy(ivy);
+                    // double vx = mesh.get_vx(ivx);
+                    // double vy = mesh.get_vy(ivy);
 
                     double value = std::sin(x) * std::sin(y) / Lvx / Lvy;
                     f_old.set(i, j, ivx, ivy, value);
