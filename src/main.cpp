@@ -41,9 +41,9 @@ int main() {
     double Lvy = mesh.get_vymax();
 
     // Declare electric field
-    VectorField E_charge("E Charge", mesh);
-    VectorField E_laser("E Laser", mesh);
-    VectorField E_total("E Total", mesh);
+    VectorField E_charge("E_Charge", mesh);
+    VectorField E_laser("E_Laser", mesh);
+    VectorField E_total("E_Total", mesh);
 
     // Create charge density field
     ScalarField rho(mesh, "rho");

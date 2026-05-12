@@ -12,6 +12,8 @@
 #include "../src/Solvers.h"
 #include "../src/Operators.h"
 
+
+
 /** TEST 1: E=0
  * Tests the iterative_implicit_solver for indexing errors, logic issues, or other bad iterative behavior
  * 
