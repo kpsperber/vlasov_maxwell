@@ -10,7 +10,7 @@ BUILD_STAMP = $(BUILD_DIR)/.stamp
 SRC_FILES = $(filter-out $(SRC_DIR)/main.cpp, $(wildcard $(SRC_DIR)/*.cpp))
 SRC_OBJS  = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/src_%.o, $(SRC_FILES))
 
-TESTS       = test_poisson test_solver
+TESTS       = test_poisson test_solver mms
 TEST_EXES   = $(addprefix $(BUILD_DIR)/, $(addsuffix .exe, $(TESTS)))
 RUN_EXES    = $(subst /,\,$(TEST_EXES))
 SILENT_DIRS = $(MAKE) --no-print-directory
@@ -33,6 +33,9 @@ $(BUILD_DIR)/test_poisson.exe: $(BUILD_DIR)/test_poisson.o $(SRC_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(BUILD_DIR)/test_solver.exe: $(BUILD_DIR)/test_solver.o $(SRC_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(BUILD_DIR)/mms.exe: $(BUILD_DIR)/mms.o $(SRC_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Compile test sources
