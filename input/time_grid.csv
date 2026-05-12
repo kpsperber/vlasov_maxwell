@@ -1,5 +1,4 @@
 t0,0.0;
-tf,1.0;
-dt,0.1;
-Nt,10;
+tf,5.0;
+Nt,300;
 writeInterval,10;

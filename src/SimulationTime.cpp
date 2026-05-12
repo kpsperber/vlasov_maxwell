@@ -13,15 +13,14 @@ void SimulationTime::read(const std::string& filename) {
     if (kv.count("tf")) {
         tf = std::stod(kv["tf"]);
     }
-    if (kv.count("dt")) {
-        dt = std::stod(kv["dt"]);
-    }
     if (kv.count("Nt")) {
         Nt = std::stoi(kv["Nt"]);
     }
     if (kv.count("writeInterval")) {
         writeInterval = std::stoi(kv["writeInterval"]);
     }
+
+    dt = (tf - t0) / Nt;
 }
 
 void SimulationTime::disp() const {

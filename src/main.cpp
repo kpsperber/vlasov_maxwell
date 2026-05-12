@@ -8,6 +8,12 @@
 #include "Solvers.h"
 #include "Operators.h"
 
+double laser(double x, double y) {
+    double val = std::exp(-(std::pow(x, 2) + std::pow(y, 2)) / (2));
+
+    return val;
+}
+
 int main() {
     // - - - - - - - - - preprocessing - - - - - - - - - -//
 
@@ -65,7 +71,7 @@ int main() {
                     E_total.set_y(i, j, 0.0);
                     
                     // Charge 
-                    rho.set(i, j, -2 * std::sin(x) * std::sin(y));
+                    rho.set(i, j, 0.0);
                 }
             }
         }
