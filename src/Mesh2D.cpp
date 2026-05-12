@@ -5,10 +5,13 @@
 #include <stdexcept>
 
 Mesh2D::Mesh2D(const std::string& mesh_file) {
+
     FileIO::KeyValueMap kv;
     FileIO::read(mesh_file, kv);
+
     static const char* required[] = {"Nx", "Ny", "Lx", "Ly", "Nvx", "Nvy", "Lvx", "Lvy"};
     for (const char* k : required) {
+
         if (kv.find(k) == kv.end()) {
             throw std::runtime_error(std::string("Mesh2D: missing key '") + k + "' in " + mesh_file);
         }
@@ -29,9 +32,9 @@ Mesh2D::Mesh2D(const std::string& mesh_file) {
     ymin = 0.0;
     ymax = std::stod(kv.at("Ly"));
 
-    vxmin = 0.0;
+    vxmin = -std::stod(kv.at("Lvx"));
     vxmax = std::stod(kv.at("Lvx"));
-    vymin = 0.0;
+    vymin = -std::stod(kv.at("Lvy"));
     vymax = std::stod(kv.at("Lvy"));
 
     dx = (xmax - xmin) / Nx;
@@ -132,6 +135,13 @@ int Mesh2D::idx_space(int i, int j) const {
 
 int Mesh2D::idx_phase(int i, int j, int k, int l) const {
     return i + Nx2 * (j + Ny2 * (k + Nvx2 * l));
+}
+
+double Mesh2D::get_vxmax() const {
+    return 2 * vxmax;
+}
+double Mesh2D::get_vymax() const {
+    return 2 * vymax;
 }
 
 void Mesh2D::write_coordinates() const {

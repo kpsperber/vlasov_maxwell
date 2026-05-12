@@ -141,12 +141,15 @@ Edit the CSV files in `input/` to change the spatial domain, velocity domain, or
 ```
 vlasov_maxwell/
 ├── src/                      # Source and header files
+│   ├── DistributionFunction.{cpp,h}    # Particle distribution function
+│   ├── FileIO.{cpp,h}                  # Helper functions for reading inputs
+│   ├── Mesh2D.{cpp,h}                  # Spatial + velocity mesh
+│   ├── Operators.{cpp,h}               # Gradient and integrate operators
+│   ├── ScalarField.{cpp,h}             # Scalar field data structure for charge density
+│   ├── SimulationTime.{cpp,h}          # Time stepping
+│   ├── Solvers.cpp                     # Poisson and iterative implicit solver
+│   ├── VectorField.{cpp,h}             # Vector field data structure for electric field 
 │   ├── main.cpp
-│   ├── Matrix.{cpp,h}        # Linear solver
-│   ├── Mesh2D.{cpp,h}        # Spatial + velocity mesh
-│   ├── Time.{cpp,h}          # Time stepping  
-│   ├── VolumeScalarField.{cpp,h}
-│   ├── VectorScalarField.{cpp,h}
 │   └── README.md
 ├── input/                    # Configuration files
 │   ├── mesh_grid.csv         # Spatial + velocity mesh parameters
@@ -154,6 +157,10 @@ vlasov_maxwell/
 │   └── README.md
 ├── output/                   # Results
 ├── scripts/                  # Postprocessing scripts
+├── tests/                    # Test Module
+│   ├── test_poisson.csv               # Runs tests for building the poisson equation 
+│   ├── test_solver.csv                # Runs tests for the iterative implicit solver
+│   ├── makefile                       # Build test suites
 ├── makefile                  # Build configuration
 └──README.md                  # This file
 ```
