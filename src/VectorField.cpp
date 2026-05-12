@@ -53,8 +53,6 @@ VectorField VectorField::operator+(const VectorField& other) const {
     }
 
     return result;
-
-}
     
 }
 
