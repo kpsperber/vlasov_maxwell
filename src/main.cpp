@@ -77,8 +77,6 @@ int main() {
         }
     }
 
-    // std::cout << "- -- Outputs -- -" << std::endl;
-
     // ---------- the time loop - - - - - - - - -//
     while ( runTime.run() ) {
 
