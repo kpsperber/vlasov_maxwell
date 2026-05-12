@@ -9,7 +9,7 @@
 #include "SimulationTime.h"
 
 void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage) {
-	const double epsilon = 8.85e-12;
+	const double epsilon = 1;
 	const int Nx   = mesh.get_Nx();
 	const int Ny   = mesh.get_Ny();
 	const int Nx2  = Nx + 2;

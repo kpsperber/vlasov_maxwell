@@ -8,8 +8,8 @@
 #include "Solvers.h"
 #include "Operators.h"
 
-double laser(double x, double y) {
-    double val = 10 * std::exp(-(std::pow(x, 2) + std::pow(y, 2)) / (2));
+double laser(double x, double y, double Lx, double Ly) {
+    double val = 10 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
 
     return val;
 }
@@ -55,6 +55,8 @@ int main() {
     DistributionFunction f_old(mesh, "f_old");
     DistributionFunction f_new(mesh,"f_new");
 
+    double sigma = 2;
+
     // Set global parameters
     double dt = runTime.get_dt();
     double qm = -1.0;
@@ -68,15 +70,14 @@ int main() {
             E_charge.set_x(i, j, 0.0);
             E_charge.set_y(i, j, 0.0);
 
-            E_laser.set_x(i, j, laser(x, y));
-            E_laser.set_y(i, j, laser(x, y));
-
-            E_total.set_x(i, j, 0.0);
-            E_total.set_y(i, j, 0.0);
+            E_laser.set_x(i, j, laser(x, y, Lx, Ly));
+            E_laser.set_y(i, j, laser(x, y, Lx, Ly));
 
             rho.set(i, j, 0.0);
         }
     }
+
+    E_total = E_charge + E_laser;
 
     // Initialize distribution
     for (int i = 0; i < Nx2; ++i) {
@@ -88,7 +89,7 @@ int main() {
                     double vx = mesh.get_vx(ivx);
                     double vy = mesh.get_vy(ivy);
 
-                    double value = std::exp(-0.5 * vx * vx - 0.5 * vy * vy) / (2.0 * 3.14159265);//std::sin(x) * std::sin(y) / Lvx / Lvy; 
+                    double value = std::exp(-0.5 * (vx * vx) / sigma - 0.5 * vy * vy / sigma) / (2.0 * 3.14159265); //std::sin(x) * std::sin(y) / Lvx / Lvy; //
 
                     f_old.set(i, j, ivx, ivy, value);
                 }
@@ -97,6 +98,7 @@ int main() {
     }
 
     integrate(mesh, f_old, rho);
+    cout << mesh.get_dvx() << endl;
     rho.write(runTime.time);
     E_total = E_charge + E_laser;
     E_total.write(runTime.time);

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include "ScalarField.h"
 
 ScalarField::ScalarField(const Mesh2D& mesh, std::string fieldName)
@@ -26,6 +27,8 @@ void ScalarField::write(double t) const {
         std::cerr << "Error: Could not open file " << path << std::endl;
         return;
     }
+
+    file << std::scientific << std::setprecision(16);
 
     for (int j = 1; j <= Ny; j++) {
         for (int i = 1; i <= Nx; i++) {
