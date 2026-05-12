@@ -44,7 +44,10 @@ void iterative_implicit_solver(
     double t,
     double dt,
     double qm,
-    std::function<double(double, double, double, double, double, double, double)> g
+    std::function<double(double, double, double, double, double, double, double)> g = 
+        [] (double x, double y, double vx, double vy, double t, double Lvx, double Lvy) -> double {
+            return 0.0;
+        }
 );
 
 
