@@ -100,9 +100,9 @@ First, we verified that our Poisson solver converged. We used the manufactured s
 
 $$v(x,y) = \sin(x)\sin(y).$$
 
-As a result, we confirmed that the solver had a convergence rate of... 
+As a result, we confirmed that the solver had an average convergence rate of 1.99. 
 
-Next, we checked that the iterative implicit solver ran with minimal error. In order to do this, we set the electric field equal to zero then ran an iteration of the solver. Our maximum error was...
+Next, we checked that the iterative implicit solver ran with minimal error. In order to do this, we set the electric field equal to zero then ran an iteration of the solver. Our maximum error was 8.97014e-024.
 
 Finally, the solver was verified using the Method of Manufactured Solutions. The test solution
 
