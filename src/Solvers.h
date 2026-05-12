@@ -19,7 +19,12 @@ class VectorField;
 void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage);
 
 /**
- * @brief Backward Euler step for Vlasov equation.
+ * @brief Advances the Vlasov distribution function one timestep using
+ * an implicit backward Euler upwind discretization.
+ *
+ * This routine solves the equation in phase space using a first-order implicit finite difference 
+ * scheme with upwind advection in both physical and velocity space. The implicit system is solved 
+ * using fixed-point iteration.
  *
  * @param mesh Mesh2D defining the spatial and velocity mesh
  * @param f_old Distribution at the beginning of the step
@@ -28,6 +33,6 @@ void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltag
  * @param dt Time step
  * @param qm Charge-to-mass ratio
  */
-void backward_euler(const Mesh2D& mesh, const DistributionFunction& f_old, DistributionFunction& f_new, const VectorField& E, double dt, double qm);
+void iterative_implicit_solver(const Mesh2D& mesh, const DistributionFunction& f_old, DistributionFunction& f_new, const VectorField& E, double dt, double qm);
 
 #endif // SOLVERS_H

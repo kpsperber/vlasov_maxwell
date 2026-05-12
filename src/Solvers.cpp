@@ -109,7 +109,7 @@ void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltag
 	}
 }
 
-void backward_euler(
+void iterative_implicit_solver(
     const Mesh2D& mesh,
     const DistributionFunction& f_old,
     DistributionFunction& f_new,
@@ -117,6 +117,7 @@ void backward_euler(
     double dt,
     double qm
 ) {
+
     int Nx2 = mesh.get_Nx() + 2;
     int Ny2 = mesh.get_Ny() + 2;
     int Nvx2 = mesh.get_Nvx() + 2;
@@ -127,7 +128,7 @@ void backward_euler(
     double dvx = mesh.get_dvx();
     double dvy = mesh.get_dvy();
 
-    // Initial guess
+    // Initial guess is just the previous timestep
     for (int i = 0; i < Nx2; ++i) {
         for (int j = 0; j < Ny2; ++j) {
             for (int ivx = 0; ivx < Nvx2; ++ivx) {
@@ -138,19 +139,20 @@ void backward_euler(
         }
     }
 
+    // Paramters for iterations 
     int max_iter = 200;
     double tol = 1.0e-10;
 
     for (int iter = 0; iter < max_iter; ++iter) {
-        double max_change = 0.0;
+        double max_change = 0.0; // Checks if greater than tolerance at the end
 
         for (int i = 1; i < Nx2 - 1; ++i) {
             for (int j = 1; j < Ny2 - 1; ++j) {
 
-                double Ex = E.get_x(i, j);
+                double Ex = E.get_x(i, j); 
                 double Ey = E.get_y(i, j);
 
-                double ax = qm * Ex;
+                double ax = qm * Ex; // coefficient for partial of f with respect to velocity
                 double ay = qm * Ey;
 
                 for (int ivx = 1; ivx < Nvx2 - 1; ++ivx) {
@@ -159,11 +161,13 @@ void backward_euler(
                         double vx = mesh.get_vx(ivx);
                         double vy = mesh.get_vy(ivy);
 
-                        double Cx  = dt * std::abs(vx) / dx;
-                        double Cy  = dt * std::abs(vy) / dy;
+                        // Compute CFL (transport) coefficients 
+                        double Cx  = dt * std::abs(vx) / dx; 
+                        double Cy  = dt * std::abs(vy) / dy; 
                         double Cvx = dt * std::abs(ax) / dvx;
                         double Cvy = dt * std::abs(ay) / dvy;
 
+                        // determines direction of upwinding stencil
                         int i_up;
                         if (vx > 0.0) {
                             i_up = i - 1;
@@ -194,6 +198,7 @@ void backward_euler(
 
                         double old_value = f_new.get(i, j, ivx, ivy);
 
+                        // Algebraic form after discretization ( known terms + upwind neighbor contributions ) / (1 + transport coefficients)
                         double numerator =
                             f_old.get(i, j, ivx, ivy)
                           + Cx  * f_new.get(i_up, j, ivx, ivy)
@@ -208,6 +213,7 @@ void backward_euler(
 
                         f_new.set(i, j, ivx, ivy, new_value);
 
+                        // computes change to show if answer is converging 
                         double change = std::abs(new_value - old_value);
                         if (change > max_change) {
                             max_change = change;
