@@ -1,6 +1,7 @@
 CXX      = g++
 CXXFLAGS = -std=c++17 -O2 -Wall -I../src
-EIGEN_INCLUDE = -IC:\Users\kpspe\C_Libraries\eigen
+#EIGEN_INCLUDE = -IC:\Users\kpspe\C_Libraries\eigen
+EIGEN_INCLUDE = -I"C:\Users\jenna\OneDrive\Documents\MEGN651\eigen"
 
 SRC_DIR     = ../src
 BUILD_DIR   = build

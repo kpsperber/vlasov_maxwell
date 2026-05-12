@@ -24,10 +24,10 @@ int main() {
     // - - - - - - - - - preprocessing - - - - - - - - - -//
 
     // initialize runTime
-    SimulationTime runTime("input/time_grid.csv");
+    SimulationTime runTime("../input/time_grid.csv");
 
     // Create Mesh
-    Mesh2D mesh("input/mesh_grid.csv");
+    Mesh2D mesh("../input/mesh_grid.csv");
     int Nx2 = mesh.get_Nx2();
     int Ny2 = mesh.get_Ny2();
     int Nvx2 = mesh.get_Nvx2();

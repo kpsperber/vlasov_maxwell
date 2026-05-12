@@ -56,8 +56,9 @@ void test_1(const Mesh2D& mesh) {
         }
     }
 
+
     // Advance one time step
-    iterative_implicit_solver(mesh, f_old, f_new, E, 0.001, 1.0); 
+    iterative_implicit_solver(mesh, f_old, f_new, E, 0.0, 0.001, 1.0); 
 
     // Compare solutions
     double max_error = 0.0;
@@ -131,7 +132,7 @@ void test_2(const Mesh2D& mesh) {
 
     // Advance one time step
     integrate(mesh, f_old, rho);
-    iterative_implicit_solver(mesh, f_old, f_new, E, 0.00000000000000001, 1.0);
+    iterative_implicit_solver(mesh, f_old, f_new, E, 0.0, 0.00000000000000001, 1.0);
 
     // Compare solutions
     double max_error = 0.0;
