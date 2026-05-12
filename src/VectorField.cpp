@@ -34,3 +34,21 @@ void VectorField::set_x(const int i, const int j, const double val) {
 void VectorField::set_y(const int i, const int j, const double val) {
     vy[i + j * Nx2] = val;
 }
+
+VectorField VectorField::operator+(const VectorField& other) const {
+    if (Nx2 != other.Nx2 || Ny2 != other.Ny2) {
+        throw std::runtime_error("VectorField::operator+: field sizes do not match");
+    }
+
+    VectorField result = *this;
+    result.name = name + "_plus_" + other.name;
+
+    for (int i = 0; i < Nx2; ++i) {
+        for (int j = 0; j < Ny2; ++j) {
+            result.set_x(i, j, get_x(i, j) + other.get_x(i, j));
+            result.set_y(i, j, get_y(i, j) + other.get_y(i, j));
+        }
+    }
+
+    return result;
+}

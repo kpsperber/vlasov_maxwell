@@ -5,6 +5,7 @@
 #include "SimulationTime.h"
 #include "DistributionFunction.h"
 #include "Solvers.h"
+#include "Operators.h"
 
 int main() {
     // - - - - - - - - - preprocessing - - - - - - - - - -//
@@ -14,9 +15,16 @@ int main() {
 
     // Create Mesh
     Mesh2D mesh("input/mesh_grid.csv");
+    int Nx2 = mesh.get_Nx2();
+    int Ny2 = mesh.get_Ny2();
+    int Nvx2 = mesh.get_Nvx2();
+    int Nvy2 = mesh.get_Nvy2();
+    double Lvx = 2 * mesh.get_vxmax();
+    double Lvy = 2 * mesh.get_vymax();
 
     // Declare electric field
-    VectorField E("E", mesh);
+    VectorField E_charge("E Charge", mesh);
+    VectorField E_laser("E Laser", mesh);
 
     // Create charge density field
     ScalarField rho(mesh, "rho");
@@ -32,6 +40,30 @@ int main() {
     double dt = runTime.get_dt();
     double qm = 1.0;
 
+    // Initial Conditions
+    for (int i = 0; i < Nx2; ++i) {
+        for (int j = 0; j < Ny2; ++j) {
+            for (int ivx = 0; ivx < Nvx2; ++ivx) {
+                for (int ivy = 0; ivy < Nvy2; ++ivy) {
+                    // Velocity field
+                    double x = mesh.get_x(i);
+                    double y = mesh.get_y(j);
+                    double vx = mesh.get_vx(ivx);
+                    double vy = mesh.get_vy(ivy);
+
+                    double value = std::sin(x) * std::sin(y) / Lvx / Lvy;
+                    f_old.set(i, j, ivx, ivy, value);
+
+                    // Zero electric field
+                    E_charge.set_x(i, j, 0.0);
+                    E_charge.set_y(i, j, 0.0);
+                    E_laser.set_x(i, j, 0.0);
+                    E_laser.set_y(i, j, 0.0);
+                }
+            }
+        }
+    }
+
     // std::cout << "- -- Outputs -- -" << std::endl;
 
     // ---------- the time loop - - - - - - - - -//
@@ -41,17 +73,14 @@ int main() {
         runTime.advance();
 
         // solve for f with iterative implicit solver function
-        iterative_implicit_solver(mesh, f_old, f_new, E, dt, qm);
+        iterative_implicit_solver(mesh, f_old, f_new, E_charge + E_laser, dt, qm);
 
         // solve for charge density with poisson solver
-        poisson(mesh,rho,V);
-
+        integrate(mesh, f_new, rho);
 
         // compute voltage
-
-        // integrate voltage 
-
-        // superimpose the electric field of laser
+        poisson(mesh, rho, V);
+        gradient(mesh, V, E_charge);
 
     }
 
