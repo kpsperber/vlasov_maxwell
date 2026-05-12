@@ -6,6 +6,7 @@
 #include "DistributionFunction.h"
 #include "VectorField.h"
 #include <functional>
+#include "SimulationTime.h"
 
 void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage) {
 	const double epsilon = 8.85e-12;
@@ -211,7 +212,7 @@ void iterative_implicit_solver(
                           + Cy  * f_new.get(i, j_up, ivx, ivy)
                           + Cvx * f_new.get(i, j, ivx_up, ivy)
                           + Cvy * f_new.get(i, j, ivx, ivy_up)
-                          - g(x, y, vx, vy, t, Lvx, Lvy);
+                          - dt * g(x, y, vx, vy, t, Lvx, Lvy);
 
                         double denominator =
                             1.0 + Cx + Cy + Cvx + Cvy;
