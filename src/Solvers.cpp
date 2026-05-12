@@ -5,6 +5,7 @@
 #include "Solvers.h"
 #include "DistributionFunction.h"
 #include "VectorField.h"
+#include <functional>
 
 void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltage) {
 	const double epsilon = 8.85e-12;
@@ -114,9 +115,10 @@ void iterative_implicit_solver(
     const DistributionFunction& f_old,
     DistributionFunction& f_new,
     const VectorField& E,
+    double t,
     double dt,
     double qm,
-    std::function<double(int, int, int, int)> g
+    std::function<double(double, double, double, double, double, double, double)> g
 ) {
 
     int Nx2 = mesh.get_Nx() + 2;
@@ -128,6 +130,8 @@ void iterative_implicit_solver(
     double dy = mesh.get_dy();
     double dvx = mesh.get_dvx();
     double dvy = mesh.get_dvy();
+    double Lvx = 2 * mesh.get_vxmax();
+    double Lvy = 2 * mesh.get_vymax();
 
     // Initial guess is just the previous timestep
     for (int i = 0; i < Nx2; ++i) {
@@ -158,7 +162,8 @@ void iterative_implicit_solver(
 
                 for (int ivx = 1; ivx < Nvx2 - 1; ++ivx) {
                     for (int ivy = 1; ivy < Nvy2 - 1; ++ivy) {
-
+                        double x = mesh.get_x(i);
+                        double y = mesh.get_y(j);
                         double vx = mesh.get_vx(ivx);
                         double vy = mesh.get_vy(ivy);
 
@@ -206,7 +211,7 @@ void iterative_implicit_solver(
                           + Cy  * f_new.get(i, j_up, ivx, ivy)
                           + Cvx * f_new.get(i, j, ivx_up, ivy)
                           + Cvy * f_new.get(i, j, ivx, ivy_up)
-                          - g(i, j, ivx, ivy);
+                          - g(x, y, vx, vy, t, Lvx, Lvy);
 
                         double denominator =
                             1.0 + Cx + Cy + Cvx + Cvy;

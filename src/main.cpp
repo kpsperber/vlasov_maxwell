@@ -14,6 +14,12 @@ double laser(double x, double y) {
     return val;
 }
 
+double g(double x, double y, double vx, double vy, double t, double Lvx, double Lvy) {
+    double val = std::sin(x) * std::sin(y) * std::cos(t) / Lvx / Lvy + vx * std::cos(x) * std::sin(y) * std::sin(t) / Lvx / Lvy + vx * std::sin(x) * std::cos(y) * std::sin(t) / Lvx / Lvy;
+
+    return val;
+}
+
 int main() {
     // - - - - - - - - - preprocessing - - - - - - - - - -//
 
@@ -78,28 +84,26 @@ int main() {
     }
 
     // ---------- the time loop - - - - - - - - -//
-    while ( runTime.run() ) {
+    while (runTime.run()) {
 
-        // advance time
         runTime.advance();
 
-        // solve for f with iterative implicit solver function
         E_total = E_charge + E_laser;
-        iterative_implicit_solver(mesh, f_old, f_new, E_total, dt, qm);
 
-        // solve for charge density with poisson solver
+        iterative_implicit_solver(mesh, f_old, f_new, E_total, runTime.time, dt, qm, g);
+
         integrate(mesh, f_new, rho);
 
-        // compute voltage
         poisson(mesh, rho, V);
+
         gradient(mesh, V, E_charge);
 
-        // write values
         if (runTime.write_now()) {
             rho.write(runTime.time);
             E_total.write(runTime.time);
         }
 
+        f_old = f_new;
     }
 
     return 0;

@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -O2 -Wall -Isrc
-EIGEN_INCLUDE = -I"C:\Users\jenna\OneDrive\Documents\MEGN651\eigen"
+EIGEN_INCLUDE = -IC:\Users\kpspe\C_Libraries\eigen
 # EIGEN_INCLUDE =  -IC:\Users\bselv\Cpp_Libraries\eigen-5.0.0
 # EIGEN_INCLUDE = -IC:\Users\kpspe\C_Libraries\eigen
 
