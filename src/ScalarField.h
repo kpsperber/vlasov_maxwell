@@ -49,7 +49,7 @@ class ScalarField {
          *
          * @param filename Optional output file path. Defaults to "output/{fieldName}.out"
          */
-        void write(const std::string& filename = "", double t) const;
+        void write(double t) const;
 };
 
 #endif // SCALARFIELD_H

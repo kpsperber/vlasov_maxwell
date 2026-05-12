@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "Mesh2D.h"
 #include "VectorField.h"
 #include "ScalarField.h"
@@ -59,6 +60,7 @@ int main() {
                     E_charge.set_y(i, j, 0.0);
                     E_laser.set_x(i, j, 0.0);
                     E_laser.set_y(i, j, 0.0);
+                    rho.set(i, j, -2 * std::sin(x) * std::sin(y));
                 }
             }
         }

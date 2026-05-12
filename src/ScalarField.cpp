@@ -18,7 +18,7 @@ void ScalarField::set(const int i, const int j, const double value) {
     data[i + j * Nx2] = value;
 }
 
-void ScalarField::write(const std::string& filename, double t) const {
+void ScalarField::write(double t) const {
     std::string path = "output/" + fieldName + "_" + std::to_string(t) + ".dat";
     std::ofstream file(path);
 
