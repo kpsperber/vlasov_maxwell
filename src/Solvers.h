@@ -10,10 +10,8 @@ class DistributionFunction;
 class VectorField;
 
 /**
- * Solve the Poisson equation for a given charge density field and voltage boundary conditions.
- * 
- * Applies zero boundary conditions for voltage.
- * 
+ * @brief Solve the Poisson equation for charge density with zero Dirichlet voltage boundaries.
+ *
  * @param mesh Reference to the computational mesh
  * @param density Scalar field representing charge density (ρ)
  * @param voltage Scalar field representing voltage to be solved for. This is modified in-place.

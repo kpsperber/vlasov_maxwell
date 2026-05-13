@@ -47,7 +47,7 @@ class ScalarField {
         /**
          * @brief Save the scalar field to a file.
          *
-         * @param filename Optional output file path. Defaults to "output/{fieldName}.out"
+         * @param t Current simulation time
          */
         void write(double t) const;
 };

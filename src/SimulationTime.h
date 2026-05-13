@@ -4,6 +4,9 @@
 #include <fstream>
 #include <string>
 
+/**
+ * @brief Time management data structure
+ */
 class SimulationTime {
     private:
         double t0, tf, dt;
@@ -24,4 +27,4 @@ class SimulationTime {
 
 };
 
-#endif
+#endif // SIMULATION_TIME_H

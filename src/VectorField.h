@@ -71,8 +71,13 @@ class VectorField {
         */
 
         VectorField operator+(const VectorField& other) const;
-        
+
+        /**
+         * @brief Save the vector field to a file.
+         *
+         * @param t Current simulation time
+         */
         void write(double t);
 };
 
-#endif
+#endif // VECTORFIELD_H

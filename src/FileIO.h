@@ -18,4 +18,4 @@ void read(const std::string& path, KeyValueMap& out);
 
 } // namespace FileIO
 
-#endif
+#endif // FILEIO_H

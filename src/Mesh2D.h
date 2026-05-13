@@ -71,4 +71,4 @@ public:
     void write_coordinates() const;
 };
 
-#endif
+#endif // MESH2D_H
