@@ -9,7 +9,7 @@
 #include "Operators.h"
 
 double laser(double x, double y, double t, double Lx, double Ly) {
-    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
+    double val = 10 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (0.5));
 
     return val;
 }
