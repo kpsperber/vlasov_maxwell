@@ -9,7 +9,7 @@
 #include "Operators.h"
 
 double laser(double x, double y, double Lx, double Ly) {
-    double val = 10 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
+    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
 
     return val;
 }
@@ -85,7 +85,7 @@ int main() {
                     double vx = mesh.get_vx(ivx);
                     double vy = mesh.get_vy(ivy);
 
-                    double value = std::exp(-0.5 * (vx * vx) / sigma - 0.5 * vy * vy / sigma) / (2.0 * 3.14159265); //std::sin(x) * std::sin(y) / Lvx / Lvy; //
+                    double value = std::exp(-0.5 * (vx * vx) / sigma - 0.5 * vy * vy / sigma) / (2.0 * 3.14159265) / 2; //std::sin(x) * std::sin(y) / Lvx / Lvy; //
 
                     f_old.set(i, j, ivx, ivy, value);
                 }
@@ -103,6 +103,8 @@ int main() {
 
         // increment time
         runTime.advance();
+        std::cout << std::string(50, '=') << endl;
+        std::cout << "Running: t = " << runTime.time << std::endl;
 
         // superimpose electric field
         E_total = E_charge + E_laser;
@@ -126,6 +128,8 @@ int main() {
         // update f
         f_old = f_new;
     }
+    std::cout << std::string(50, '=') << std::endl;
+    std::cout << "Complete!";
 
     return 0;
 }
