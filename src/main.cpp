@@ -8,8 +8,8 @@
 #include "Solvers.h"
 #include "Operators.h"
 
-double laser(double x, double y, double Lx, double Ly) {
-    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
+double laser(double x, double y, double t, double Lx, double Ly) {
+    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2)) * std::cos(3.14159265 * t);
 
     return val;
 }
@@ -70,8 +70,8 @@ int main() {
             E_charge.set_x(i, j, 0.0);
             E_charge.set_y(i, j, 0.0);
 
-            E_laser.set_x(i, j, laser(x, y, Lx, Ly));
-            E_laser.set_y(i, j, laser(x, y, Lx, Ly));
+            E_laser.set_x(i, j, laser(x, y, 0.0, Lx, Ly));
+            E_laser.set_y(i, j, laser(x, y, 0.0, Lx, Ly));
 
             rho.set(i, j, 0.0);
         }
@@ -110,6 +110,19 @@ int main() {
         runTime.advance();
         std::cout << std::string(50, '=') << endl;
         std::cout << "Running: t = " << runTime.time << std::endl;
+
+        for (int i = 0; i < Nx2; ++i) {
+            for (int j = 0; j < Ny2; ++j) {
+                double x = mesh.get_x(i);
+                double y = mesh.get_y(j);
+
+                E_laser.set_x(i, j, laser(x, y, runTime.time, Lx, Ly));
+                E_laser.set_y(i, j, laser(x, y, runTime.time, Lx, Ly));
+
+            }
+        }
+        
+
 
         // superimpose electric field
         E_total = E_charge + E_laser;
