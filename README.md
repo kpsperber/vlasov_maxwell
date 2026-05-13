@@ -138,13 +138,16 @@ Next, we checked that the iterative implicit solver ran with minimal error. In o
 
 Finally, the solver was verified using the Method of Manufactured Solutions. The test solution
 
-$$f = \sin(x)\sin(y)\sin(v_x)\sin(v_y)\sin(t)$$
+$$f = \frac{sin(x)sin(y)cos(t)}{L_{vx} L_{vy}}$$
 
-is prescribed over the domain $L_x = L_y = \pi$ with a manufactured forcing function $g(x, y, v_x, v_y, t)$ derived by substituting $f$ into the Vlasov equation analytically. We found
+is prescribed over the domain $L_x = L_y = 2\pi$ with a manufactured forcing function $g(x, y, v_x, v_y, t)$ derived by substituting $f$ into the Vlasov equation analytically. We found
 
-$$g = \frac{-\sin(x)\sin(y)\sin(t)}{L_xL_y} + \frac{v_x\cos(x)\sin(y)\cos(t)}{L_xL_y} + \frac{v_y\sin(x)\cos(y)\cos(t)}{L_xL_y}.$$
+$$g = \frac{-\sin(x)\sin(y)\sin(t)}{L_{vx}L_{vy}} + \frac{v_x\cos(x)\sin(y)\cos(t)}{L_{vx}L_{vy}} + \frac{v_y\sin(x)\cos(y)\cos(t)}{L_{vx}L_{vy}}.$$
 
-The solver is run with this forcing and the computed solution is compared to the exact $f$, confirming spatial and temporal convergence at the expected rates.
+The solver is run with this forcing and the computed solution is compared to the exact $f$. The accuracy of $f$ was verified qualitatively side by side with the expected solution. These results matched the manufactured solution.
+
+## Applying the Solver
+Implementing the gaussian electric field and the intial conditions as described above we were able to get physical results. The charge density for the electrons start uniformly distributed across the domain. Then, when the laser is turned on the electron distribution is ejected away from the laser forming a gaussian shaped void. This makes sense as in a real scenario the electrons are going to be repelled by the electric field of the laser.
 
 ## Quick Start
 
