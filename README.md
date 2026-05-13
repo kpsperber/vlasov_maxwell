@@ -150,7 +150,9 @@ The solver is run with this forcing and the computed solution is compared to the
 Implementing the gaussian electric field and the intial conditions as described above we were able to get physical results. The charge density for the electrons start uniformly distributed across the domain. Then, when the laser is turned on the electron distribution is ejected away from the laser forming a gaussian shaped void. This makes sense as in a real scenario the electrons are going to be repelled by the electric field of the laser.
 
 ## Results
-Overall we got a result we believe is physical as the charge distribution congragates to the center of the grid and then oscillates in a circular pattern following the polarization of the laser. The results are shown below where the heatmap represents the charge distribution and the white lines give the electric field.
+Overall we got a result we believe is physical as the charge distribution congregates to the center of the grid and then oscillates in a circular pattern following the polarization of the laser. The results are shown below where the heatmap represents the charge distribution and the white lines give the electric field.
+
+![img](output/E_on_rho.gif)
 
 ## Quick Start
 
