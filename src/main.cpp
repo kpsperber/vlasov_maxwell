@@ -37,8 +37,6 @@ int main() {
     int Nvy2 = mesh.get_Nvy2();
     double Lx = mesh.get_xmax();
     double Ly = mesh.get_ymax();
-    double Lvx = mesh.get_vxmax();
-    double Lvy = mesh.get_vymax();
 
     // Declare electric field
     VectorField E_charge("E_Charge", mesh);
@@ -84,8 +82,6 @@ int main() {
         for (int j = 0; j < Ny2; ++j) {
             for (int ivx = 0; ivx < Nvx2; ++ivx) {
                 for (int ivy = 0; ivy < Nvy2; ++ivy) {
-                    double x = mesh.get_x(i);
-                    double y = mesh.get_y(j);
                     double vx = mesh.get_vx(ivx);
                     double vy = mesh.get_vy(ivy);
 
@@ -98,7 +94,6 @@ int main() {
     }
 
     integrate(mesh, f_old, rho);
-    cout << mesh.get_dvx() << endl;
     rho.write(runTime.time);
     E_total = E_charge + E_laser;
     E_total.write(runTime.time);

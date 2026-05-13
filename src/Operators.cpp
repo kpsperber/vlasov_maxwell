@@ -16,9 +16,6 @@ void integrate(const Mesh2D& mesh, const DistributionFunction& f, ScalarField& r
     int Nvx = mesh.get_Nvx();
     int Nvy = mesh.get_Nvy();
 
-    int Nvx2 = Nvx + 2;
-    int Nvy2 = Nvy + 2;
-
     double dvx = mesh.get_dvx();
     double dvy = mesh.get_dvy();
 
