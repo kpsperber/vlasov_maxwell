@@ -157,9 +157,11 @@ The solver is initialized with electrons uniformly distributed across the domain
 
 ![img](output/rho.gif)
 
-The dominant contribution to the total electric field comes from the laser rather than the self-consistent plasma field. Because the laser is circularly polarized, its electric field vector rotates in the $xy$-plane over each optical cycle. This rotating field continuously redistributes the charge density, causing the "smearing" along the current field direction. This can be better seen with the electric field lines superimposed on the charge density.
+The dominant contribution to the total electric field comes from the laser rather than the plasma field. Because the laser is circularly polarized, its electric field vector rotates in the $xy$-plane over each optical cycle. This rotating field continuously redistributes the charge density, causing the "smearing" we see along the current field direction. This can be better seen with the electric field lines superimposed on the charge density.
 
 ![img](output/E_on_rho.gif)
+
+The results demonstrate that the implemented solver correctly models laser-plasma interactions. The electron void formation, Gaussian density profile, and field-driven charge redistribution all match our expectations. This, paired with our suite of tests on our solver, gives us confidence that the simulation accurately models the laser-plasma interactions. Future work could extend the solver to three spatial dimensions, explore differently polarized laser profiles, or investigate higher-intensity regimes.  
 
 
 ## Quick Start
