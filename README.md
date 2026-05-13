@@ -148,12 +148,12 @@ was prescribed over the domain $L_x = L_y = 2\pi$ with a manufactured forcing fu
 
 $$g = \frac{-\sin(x)\sin(y)\sin(t)}{L_{vx}L_{vy}} + \frac{v_x\cos(x)\sin(y)\cos(t)}{L_{vx}L_{vy}} + \frac{v_y\sin(x)\cos(y)\cos(t)}{L_{vx}L_{vy}}.$$
 
-The solver was run with this forcing function and the computed solution was compared to the exact $f$ over a full simulation for $t \in [0, 1]$. In this test, $f$ converged to the expected solution over the full simulation time, shown below.
+The solver was run with this forcing function and the computed solution was compared to the exact $f$ over a full simulation for $t \in [0, 2\pi]$. In this test, $f$ converged to the expected solution over the full simulation time, shown below.
 
 ![img](output/manufactured_solution.gif)
 
 ## Results
-The solver is initialized with electrons uniformly distributed across the domain and the laser field off. Once the laser pulse is activated, the electron distribution is rapidly expelled outward from the beam center, forming a Gaussian-shaped void. This behavior is physically consistent: the strong electric field of the laser repels electrons away from the region of peak intensity.
+The solver is initialized with electrons uniformly distributed across the domain and the laser field off. Once the laser pulse is activated, the electron distribution is rapidly expelled outward from the beam center, forming a Gaussian-shaped void. This behavior is physically consistent, as the strong electric field of the laser repels electrons away from the region of peak intensity.
 
 ![img](output/rho.gif)
 
