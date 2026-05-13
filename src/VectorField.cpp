@@ -2,6 +2,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
 #include "VectorField.h"
@@ -59,14 +61,13 @@ void VectorField::write(double t) {
     std::string path = "output/" + name + "_" + std::to_string(t) + ".dat";
     std::ofstream file(path);
 
-    file << "\n# vx values\n";
-    for (int k = 0; k < Nx2; ++k) {
-        file << k << " " << vx[k] << "\n";
-    }
+    file << std::scientific << std::setprecision(16);
 
-    file << "\n# vy values\n";
-    for (int l = 0; l < Ny2; ++l) {
-        file << l << " " << vy[l] << "\n";
+    file << "# Ex Ey\n";
+    for (int j = 1; j <= Ny; j++) {
+        for (int i = 1; i <= Nx; i++) {
+            file << get_x(i, j) << " " << get_y(i, j) << "\n";
+        }
     }
 
     file.close();

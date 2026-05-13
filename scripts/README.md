@@ -1,5 +1,5 @@
 # Scripts
 
-This directory contains scripts for running experiments and post-processing results.
+This directory contains scripts for post-processing results.
 
 ## Files
