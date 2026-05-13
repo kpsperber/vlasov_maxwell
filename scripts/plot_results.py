@@ -84,18 +84,42 @@ def render_rho_frame(rho, time, cmap, norm):
 
 def render_E_frame(Ex, Ey, rho, time, rho_cmap, rho_norm, quiver_step=4):
     Ny, Nx = Ex.shape
-    x = np.arange(Nx)
-    y = np.arange(Ny)
+
+    # Physical domain: 0 to 2pi in both directions
+    x = np.linspace(0, 2 * np.pi, Nx)
+    y = np.linspace(0, 2 * np.pi, Ny)
+
     X, Y = np.meshgrid(x[::quiver_step], y[::quiver_step])
+
     U = Ex[::quiver_step, ::quiver_step]
     V = Ey[::quiver_step, ::quiver_step]
 
     fig, ax = plt.subplots()
-    im = ax.imshow(rho, cmap=rho_cmap, norm=rho_norm, origin="upper", aspect="auto")
+
+    im = ax.imshow(
+        rho,
+        cmap=rho_cmap,
+        norm=rho_norm,
+        origin="lower",
+        aspect="auto",
+        extent=[0, 2 * np.pi, 0, 2 * np.pi],
+    )
+
     fig.colorbar(im, ax=ax, label="Charge Density")
-    ax.quiver(X, Y, U, V, color="white", pivot="mid", alpha=0.8)
-    ax.set_xlim(0, Nx)
-    ax.set_ylim(0, Ny)
+
+    ax.quiver(
+        X,
+        Y,
+        U,
+        V,
+        color="white",
+        pivot="mid",
+        alpha=0.8,
+    )
+
+    ax.set_xlim(0, 2 * np.pi)
+    ax.set_ylim(0, 2 * np.pi)
+
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_title(f"E Field & Charge Density at Time {time:.4f}")
@@ -104,6 +128,7 @@ def render_E_frame(Ex, Ey, rho, time, rho_cmap, rho_norm, quiver_step=4):
     buf = np.asarray(fig.canvas.buffer_rgba())[..., :3]
     img = Image.fromarray(buf)
     plt.close(fig)
+
     return img
 
 

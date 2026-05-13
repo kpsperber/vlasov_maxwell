@@ -43,7 +43,7 @@ and is superimposed with the electric field from the laser;
 
 $$
 \begin{equation*}
-    \vec{E}(x, y) = E_0 e^{-\frac{x^2 + y^2}{w^2}} (\hat{x} + \hat{y})
+    \vec{E}(x, y) = E_0 e^{-\frac{x^2 + y^2}{w^2}} (\cos(\pi t)\hat{x} + \sin(\pi t)\hat{y})
 \end{equation*}
 $$
 
@@ -148,6 +148,9 @@ The solver is run with this forcing and the computed solution is compared to the
 
 ## Applying the Solver
 Implementing the gaussian electric field and the intial conditions as described above we were able to get physical results. The charge density for the electrons start uniformly distributed across the domain. Then, when the laser is turned on the electron distribution is ejected away from the laser forming a gaussian shaped void. This makes sense as in a real scenario the electrons are going to be repelled by the electric field of the laser.
+
+## Results
+Overall we got a result we believe is physical as the charge distribution congragates to the center of the grid and then oscillates in a circular pattern following the polarization of the laser. The results are shown below where the heatmap represents the charge distribution and the white lines give the electric field.
 
 ## Quick Start
 
