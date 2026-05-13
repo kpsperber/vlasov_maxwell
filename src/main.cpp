@@ -9,7 +9,7 @@
 #include "Operators.h"
 
 double laser(double x, double y, double t, double Lx, double Ly) {
-    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2)) * std::cos(3.14159265 * t);
+    double val = 1 * std::exp(-(std::pow(x - Lx / 2, 2) + std::pow(y - Ly / 2, 2)) / (2));
 
     return val;
 }
@@ -69,7 +69,7 @@ int main() {
             E_charge.set_y(i, j, 0.0);
 
             E_laser.set_x(i, j, laser(x, y, 0.0, Lx, Ly));
-            E_laser.set_y(i, j, laser(x, y, 0.0, Lx, Ly));
+            E_laser.set_y(i, j, laser(x, y, 0.0, Lx, Ly) * 0.0);
 
             rho.set(i, j, 0.0);
         }
@@ -111,8 +111,8 @@ int main() {
                 double x = mesh.get_x(i);
                 double y = mesh.get_y(j);
 
-                E_laser.set_x(i, j, laser(x, y, runTime.time, Lx, Ly));
-                E_laser.set_y(i, j, laser(x, y, runTime.time, Lx, Ly));
+                E_laser.set_x(i, j, laser(x, y, runTime.time, Lx, Ly) * std::cos(3.14159265 * runTime.time));
+                E_laser.set_y(i, j, laser(x, y, runTime.time, Lx, Ly) * std::sin(3.14159265 * runTime.time));
 
             }
         }
