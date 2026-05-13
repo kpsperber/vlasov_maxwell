@@ -32,6 +32,7 @@ void poisson(const Mesh2D& mesh, const ScalarField& density, ScalarField& voltag
  * @param f_old Distribution at the beginning of the step
  * @param f_new Distribution after the step (buffer to write into)
  * @param E Electric field
+ * @param t Time
  * @param dt Time step
  * @param qm Charge-to-mass ratio
  * @param g Function representing the source term, used to test the solver using the Method of Manufactured Solutions. Defaults to 0.
