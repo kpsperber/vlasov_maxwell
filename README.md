@@ -154,6 +154,7 @@ The solver was run with this forcing function and the computed solution was comp
 
 ## Results
 The solver is initialized with electrons uniformly distributed across the domain and the laser field off. Once the laser pulse is activated, the electron distribution is rapidly expelled outward from the beam center, forming a Gaussian-shaped void. This behavior is physically consistent: the strong electric field of the laser repels electrons away from the region of peak intensity.
+
 ![img](output/rho.gif)
 
 The dominant contribution to the total electric field comes from the laser rather than the self-consistent plasma field. Because the laser is circularly polarized, its electric field vector rotates in the $xy$-plane over each optical cycle. This rotating field continuously redistributes the charge density, causing the "smearing" along the current field direction. This can be better seen with the electric field lines superimposed on the charge density.
