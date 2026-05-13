@@ -164,6 +164,8 @@ Implementing the gaussian electric field and the intial conditions as described 
 git clone <repo-url>
 cd vlasov_maxwell
 
+# Ensure that the makefile has the appropriate path to the Eigen library on your device
+
 # Compile the project
 make build
 
@@ -198,15 +200,19 @@ vlasov_maxwell/
 │   ├── main.cpp
 │   └── README.md
 ├── input/                    # Configuration files
-│   ├── mesh_grid.csv         # Spatial + velocity mesh parameters
-│   ├── time_grid.csv         # Time stepping parameters
+│   ├── mesh_grid.csv                   # Spatial + velocity mesh parameters
+│   ├── time_grid.csv                   # Time stepping parameters
 │   └── README.md
 ├── output/                   # Results
 ├── scripts/                  # Postprocessing scripts
+│   ├── plot_E.py                       # Plots electric field using vectors
+|   ├── plot_rho.py                     # Animates charge density evolving over time
+│   └── README.md                       
 ├── tests/                    # Test Module
-│   ├── test_poisson.csv               # Runs tests for building the poisson equation 
-│   ├── test_solver.csv                # Runs tests for the iterative implicit solver
-│   ├── makefile                       # Build test suites
+│   ├── test_poisson.cpp               # Runs tests for building the poisson equation 
+│   ├── test_solver.cpp                # Runs tests for the iterative implicit solver
+|   ├── mms.cpp                        # Runs method of manufactured solution test
+│   └── makefile                       # Build test suites
 ├── makefile                  # Build configuration
 └──README.md                  # This file
 ```
