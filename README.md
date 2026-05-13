@@ -205,8 +205,7 @@ vlasov_maxwell/
 │   └── README.md
 ├── output/                   # Results
 ├── scripts/                  # Postprocessing scripts
-│   ├── plot_E.py                       # Plots electric field using vectors
-|   ├── plot_rho.py                     # Animates charge density evolving over time
+|   ├── plot_results.py                 # Produces visualizations of charge density and the Electric field
 │   └── README.md                       
 ├── tests/                    # Test Module
 │   ├── test_poisson.cpp               # Runs tests for building the poisson equation 
