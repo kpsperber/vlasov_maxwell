@@ -59,14 +59,14 @@ void VectorField::write(double t) {
     std::string path = "output/" + name + "_" + std::to_string(t) + ".dat";
     std::ofstream file(path);
 
-    file << "\n# vx values\n";
-    for (int k = 0; k < Nx2; ++k) {
-        file << k << " " << vx[k] << "\n";
+    file << "\n# x values\n";
+    for (int k = 0; k < Nx2 * Ny2; ++k) {
+        file << vx[k] << "\n";
     }
 
-    file << "\n# vy values\n";
-    for (int l = 0; l < Ny2; ++l) {
-        file << l << " " << vy[l] << "\n";
+    file << "\n# y values\n";
+    for (int l = 0; l < Nx2 * Ny2; ++l) {
+        file << vy[l] << "\n";
     }
 
     file.close();
